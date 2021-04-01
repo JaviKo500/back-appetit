@@ -118,7 +118,7 @@ public class MovimientoRestController {
 			p.setEstado(estado);
 			p.setIsEntregado(true);
 			movimiento.setMonto(p.getTotal());
-		}else {
+		} else {
 			p.setIsAnulado(true);
 		}
 
