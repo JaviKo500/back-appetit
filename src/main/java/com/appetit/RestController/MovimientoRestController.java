@@ -197,6 +197,26 @@ public class MovimientoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
+	@GetMapping("get/movimientos/fecha-init/{fecha_ini}/fecha-fin/{fecha_fin}/page/{page}")
+	public ResponseEntity<?> obtenerMovimientosFechas(@PathVariable Date fecha_ini, @PathVariable Date fecha_fin,
+			@PathVariable Integer page) {
+		Map<String, Object> response = new HashMap<>();
+		Page<MovimientoCaja> movimientos;
+
+		try {
+			Pageable pageable = PageRequest.of(page, 10);
+			movimientos = movimientoService.obtenerMovimientosEntreFechas(fecha_ini, fecha_fin, pageable);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al obtener los movimientos");
+			response.put("error", e.getMostSpecificCause().getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("movimientos", movimientos);
+		response.put("mensaje", "movimientos obtenidos");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+
 	// no finalizado /***********************************************************
 	/*
 	 * @PostMapping("registrar/movimiento-caja/") public ResponseEntity<?>
