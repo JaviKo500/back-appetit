@@ -217,28 +217,4 @@ public class MovimientoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
-	// no finalizado /***********************************************************
-	/*
-	 * @PostMapping("registrar/movimiento-caja/") public ResponseEntity<?>
-	 * registrarMovimiento(@RequestBody MovimientoCaja movimiento) { Map<String,
-	 * Object> response = new HashMap<>(); List<String> errores =
-	 * validacionMov.validacionesMovimientos(movimiento); if (errores.size() != 0) {
-	 * response.put("mensaje", "errores al finalizar pedido"); response.put("error",
-	 * "error de campos"); response.put("errores", errores); return new
-	 * ResponseEntity<Map<String, Object>>(response, HttpStatus.CONFLICT); } //
-	 * procesar el pedido try { Pedido p = movimiento.getPedido(); // Estado est //
-	 * p.setEstado(estado);
-	 * pedidoService.registrarNuevoPedido(movimiento.getPedido()); } catch
-	 * (DataAccessException e) { response.put("mensaje",
-	 * "Error al finalizar el pedido."); response.put("error",
-	 * e.getMostSpecificCause().getMessage()); return new ResponseEntity<Map<String,
-	 * Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); } try {
-	 * movimientoService.registrarMovimiento(movimiento); } catch
-	 * (DataAccessException e) { response.put("mensaje",
-	 * "Error al procesar el movimiento"); response.put("error",
-	 * e.getMostSpecificCause().getMessage()); return new ResponseEntity<Map<String,
-	 * Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); }
-	 * response.put("mensaje", "movimiento correcto"); return new
-	 * ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED); }
-	 */
 }
