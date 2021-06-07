@@ -15,7 +15,11 @@ public interface IProductoRepo extends JpaRepository<Producto, Long> {
 
 	public List<Producto> findByEstadoAndCategoriaAndEliminated(Boolean estado, Categoria categoria,
 			Boolean eliminated);
-
+	
+	// consulta para especiales
+	public List<Producto> findByEstadoAndEliminatedAndEspecial(Boolean estado,
+			Boolean eliminated, Boolean especial);
+	
 	public List<Producto> findByEstadoAndEliminatedAndNombreContainingIgnoreCase(Boolean estado, Boolean eliminated,
 			String term);
 

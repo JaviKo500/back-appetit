@@ -22,11 +22,21 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/get/client/products/**", "/product/img/**", "/get/client/combos/{id_cate}",
-						"/register/new/pedido/{cedula}", "/get/all/mesas", "/get/categories/products",
-						"/get/categories/combos", "/get/mesa/cliente/**", "/category/img/**", "/client/register/client",
-						"/chat-websocket/**", "/chat/**", "/app/**")
-				.permitAll().antMatchers(HttpMethod.GET, "/chat-websocket/**", "/chat/**", "/app/**").permitAll()
+				.antMatchers(	"/get/client/products/**",
+								"/get/products/especiales",
+								"/product/img/**", 
+								"/get/combos/especiales",
+								"/get/client/combos/{id_cate}",
+								"/register/new/pedido/{cedula}", 
+								"/get/all/mesas", 
+								"/get/categories/products",
+								"/get/categories/combos", 
+								"/get/mesa/cliente/**", 
+								"/category/img/**", 
+								"/client/register/client",
+								"/chat-websocket/**", 
+								"/chat/**", "/app/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/chat-websocket/**", "/chat/**", "/app/**").permitAll()
 				.anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
 	}
 

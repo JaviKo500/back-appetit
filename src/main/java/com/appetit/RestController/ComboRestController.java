@@ -60,12 +60,36 @@ public class ComboRestController {
 		response.put("combos", lista);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-
+	
+	// enpoint para la lista de combos con especiales
+	@GetMapping("get/combos/especiales")
+	public ResponseEntity<?> filtrarCombosByEstado() {
+		Map<String, Object> response = new HashMap<>();
+		List<Combo> lista = new ArrayList<>();
+		
+		try {
+			lista = comboService.filtrarCombosEspeciales();
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al obtener la lista de combos.");
+			response.put("error", e.getMostSpecificCause().getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		response.put("mensaje", "lista de combos");
+		response.put("combos", lista);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+	
+	// usamos para cambiar el estado y el estado de especial
 	@Secured({ "ROLE_ADMIN" })
 	@PutMapping("actualizar/estado/combo")
 	public ResponseEntity<?> CambiarEstadoProducto(@RequestBody Combo combo) {
 		Map<String, Object> response = new HashMap<>();
-
+		if ( !combo.getEstado() && combo.getEspecial() ) {
+			response.put("titulo", "Por favor: ");
+			response.put("mensaje", "El combo debe estar en el menú para el especial");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		try {
 			comboService.registrarCombo(combo);
 		} catch (DataAccessException e) {

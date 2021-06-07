@@ -16,6 +16,9 @@ public interface IComboRepo extends JpaRepository<Combo, Long> {
 	public List<Combo> findByEstadoAndEliminadoAndCategoria(Boolean estado, Boolean eliminado, Categoria categoria);
 
 	public Combo findByIdAndEliminado(Long id, Boolean eliminado);
+	
+	// consulta para los combos especiales
+	public List<Combo> findByEliminadoAndEstadoAndEspecial(Boolean eliminado, Boolean estado, Boolean especial);
 
 	public List<Combo> findByEstadoAndEliminadoAndNombreContainingIgnoreCase(Boolean estado, Boolean eliminado,
 			String term);

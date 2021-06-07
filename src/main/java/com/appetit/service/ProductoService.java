@@ -27,6 +27,12 @@ public class ProductoService {
 	public List<Producto> productosClienteEstado(Categoria cate) {
 		return productoRepo.findByEstadoAndCategoriaAndEliminated(true, cate, false);
 	}
+	
+	// servico para productos especiales
+	@Transactional(readOnly = true)
+	public List<Producto> productosClienteEspeciales() {
+		return productoRepo.findByEstadoAndEliminatedAndEspecial(true, false, true);
+	}
 
 	@Transactional(readOnly = true)
 	public Page<Producto> ObtenerProductosPage(Pageable pageable) {

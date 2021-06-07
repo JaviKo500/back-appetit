@@ -48,4 +48,10 @@ public class ComboService {
 	public List<Combo> filtrarCombosNombre(String termino) {
 		return comboRepo.findByEstadoAndEliminadoAndNombreContainingIgnoreCase(true, false, termino);
 	}
+	
+	// servicio para lista de combos en estado especial
+	@Transactional(readOnly = true)
+	public List<Combo> filtrarCombosEspeciales() {
+		return comboRepo.findByEliminadoAndEstadoAndEspecial(false, true, true);
+	}
 }

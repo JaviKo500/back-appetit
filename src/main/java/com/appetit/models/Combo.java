@@ -28,6 +28,8 @@ public class Combo implements Serializable {
 	private Double precio;
 
 	private Boolean estado;
+	
+	private Boolean especial;
 
 	private String imagen;
 
@@ -99,6 +101,14 @@ public class Combo implements Serializable {
 
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
+	}
+	
+	public Boolean getEspecial() {
+		return especial;
+	}
+
+	public void setEspecial(Boolean especial) {
+		this.especial = especial;
 	}
 
 	public Boolean getEliminado() {

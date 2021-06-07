@@ -59,7 +59,11 @@ public class ProductoRestController {
 	@PutMapping("actualizar/estado/producto")
 	public ResponseEntity<?> CambiarEstadoProducto(@RequestBody Producto producto) {
 		Map<String, Object> response = new HashMap<>();
-
+		if ( !producto.getEstado() && producto.getEspecial() ) {
+			response.put("titulo", "Por favor: ");
+			response.put("mensaje", "El producto debe estar en el menú para el especial");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
 		try {
 			productoService.RegistrarProducto(producto);
 		} catch (DataAccessException e) {
@@ -90,7 +94,25 @@ public class ProductoRestController {
 		response.put("productos", lista);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	
+	@GetMapping("get/products/especiales")
+	public ResponseEntity<?> filtrarProductosEspeciales() {
+		Map<String, Object> response = new HashMap<>();
+		List<Producto> lista = new ArrayList<>();
 
+		try {
+			lista = productoService.productosClienteEspeciales();
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al obtener la lista de productos.");
+			response.put("error", e.getMostSpecificCause().getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		response.put("mensaje", "lista de productos");
+		response.put("productos", lista);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
+	
 	@GetMapping("get/client/products/{cate_id}")
 	public ResponseEntity<?> ListaDeProductos(@PathVariable Long cate_id) {
 		Map<String, Object> response = new HashMap<>();
