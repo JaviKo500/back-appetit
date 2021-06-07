@@ -163,7 +163,7 @@ public class MovimientoRestController {
 		response.put("mensaje", "Correcto.");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-
+	@Secured({ "ROLE_ADMIN", "ROLE_COCINERO" })
 	@GetMapping("get/movimientos/id_usuario/{id}/page/{page}")
 	public ResponseEntity<?> obtenerMovimientosFechaUsuario(@PathVariable Long id, @PathVariable Integer page) {
 		Map<String, Object> response = new HashMap<>();
@@ -179,7 +179,7 @@ public class MovimientoRestController {
 		}
 		if (user == null) {
 			response.put("mensaje", "Su sessión tiene problemas.");
-			response.put("error", "Su id de usuario pudo haber sido eliminado o ddeshabilitado.");
+			response.put("error", "Su id de usuario pudo haber sido eliminado o deshabilitado.");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
@@ -197,7 +197,7 @@ public class MovimientoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("get/movimientos/fecha-init/{fecha_ini}/fecha-fin/{fecha_fin}/page/{page}")
+	@GetMapping("get/movimientos/from/{fecha_ini}/to/{fecha_fin}/page/{page}")
 	public ResponseEntity<?> obtenerMovimientosFechas(@PathVariable Date fecha_ini, @PathVariable Date fecha_fin,
 			@PathVariable Integer page) {
 		Map<String, Object> response = new HashMap<>();

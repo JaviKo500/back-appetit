@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -55,6 +58,27 @@ public class PedidosRestController {
 			}
 		}
 		return est_Ventas;
+	}
+
+	@Secured({ "ROLE_ADMIN" })
+	@GetMapping("get/ventas/from/{fecha_ini}/to/{fecha_fin}/page/{page}")
+	public ResponseEntity<?> listarVentas(@PathVariable Integer page, @PathVariable Date fecha_ini,
+			@PathVariable Date fecha_fin) {
+		Map<String, Object> response = new HashMap<>();
+		Page<Pedido> pedidos;
+		Estado estado;
+		try {
+			estado = estadoService.buscarEstadoByNombre("Entregado");
+			Pageable pageable = PageRequest.of(page, 10);
+			pedidos = pedidoService.obtenerVentasFechasEstado(pageable, estado, fecha_ini, fecha_fin);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error el obtener las ventas.");
+			response.put("error", e.getMostSpecificCause().getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "lista obtenida");
+		response.put("ventas", pedidos);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
 	@Secured({ "ROLE_ADMIN" })
