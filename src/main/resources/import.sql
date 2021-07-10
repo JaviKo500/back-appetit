@@ -21,6 +21,7 @@ insert into sexo(tipo)values('Otro');
 
 insert into usuario(cedula, eliminated, email, estado, nombre, password, telefono, username, sexo_id) values('0105354815', false, 'marcatoma99@gmail.com', true, 'chris', '$2a$10$DoTXFu/0hdLvmZSE6jGzo.SUjrfG105RvqOuPR6TCI1fMKeTBGe8W', '0996935232', 'chris', 1);
 insert into usuario(cedula, eliminated, email, estado, nombre, password, telefono, username, sexo_id) values('0105354855', false, 'marcatoma@gmail.com', true, 'javi', '$2a$10$DoTXFu/0hdLvmZSE6jGzo.SUjrfG105RvqOuPR6TCI1fMKeTBGe8W', '0996935232', 'javi', 1);
+insert into usuario(cedula, eliminated, email, estado, nombre, password, telefono, username, sexo_id) values('0105354838', false, 'javi@gmail.com', true, 'javiko', '$2a$10$DoTXFu/0hdLvmZSE6jGzo.SUjrfG105RvqOuPR6TCI1fMKeTBGe8W', '0996935232', 'javiko', 1);
 insert into estado(nom_estado) values('Solicitado');
 insert into estado(nom_estado) values('En espera'); 
 insert into estado(nom_estado) values('En preparacion');
@@ -44,9 +45,11 @@ insert into mesa (estado, nombre, eliminated) values (false, 'mesa14', false);
 
 insert into role (nombre) values ('ROLE_ADMIN');
 insert into role (nombre) values ('ROLE_COCINERO');
+insert into role (nombre) values ('ROLE_CAJERO');
 
 insert into usuarios_roles (usuario_id, role_id) values(1,1);
 insert into usuarios_roles (usuario_id, role_id) values(2,2);
+insert into usuarios_roles (usuario_id, role_id) values(3,3);
 
 insert into producto (descripcion, estado, nombre, precio, categoria_id, imagen, eliminated, especial) values('sn', true, 'papas', 2.20, 3, 'comida.jpg', false, false);
 insert into producto (descripcion, estado, nombre, precio, categoria_id, imagen, eliminated, especial) values('sn', true, 'papas 1', 2.20, 3, 'comida.jpg', false, false);
